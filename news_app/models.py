@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.urls import reverse
+from django.utils.text import slugify
 
 
 # Create your models here.
@@ -37,7 +38,9 @@ class News(models.Model):
                               )
     objects = models.Manager()
 
-
+    # def save(self, *args, **kwargs):
+    #     self.slug = slugify(self.title)
+    #     super(News, self).save(*args, **kwargs)
     class Meta:
         ordering = ['-publish_time']
 
@@ -50,7 +53,7 @@ class News(models.Model):
 class ContactUs(models.Model):
     name = models.CharField(max_length=150)
     email = models.EmailField(max_length=150)
-    text  = models.TextField()
+    text = models.TextField()
 
     def __str__(self):
         return self.email

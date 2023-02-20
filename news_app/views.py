@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import TemplateView, ListView
+from django.urls import reverse_lazy
+from django.views.generic import TemplateView, ListView, UpdateView, CreateView, DeleteView
 
 #from django.views.generic import  TemplateView
 from .models import News,  Category
@@ -124,7 +125,7 @@ class LocalNewsView(ListView):
 class ForeignNewsView(ListView):
     model = News
     template_name = "news/xorij.html"
-    context_object_name = 'xorijiy-yangiliklar'
+    context_object_name = 'xorijiy_yangiliklar'
     def get_queryset(self):
         news = self.model.objects.filter(status=News.Status.Published,  category__name="Xorij")
         return news
@@ -132,7 +133,7 @@ class ForeignNewsView(ListView):
 class SportNewsView(ListView):
     model = News
     template_name = "news/sport.html"
-    context_object_name = 'sport-yangiliklar'
+    context_object_name = 'sport_yangiliklar'
     def get_queryset(self):
         news = self.model.objects.filter(status=News.Status.Published,  category__name="Sport")
         return news
@@ -140,10 +141,28 @@ class SportNewsView(ListView):
 class TechnologyNewsView(ListView):
     model = News
     template_name = "news/texnalogiya.html"
-    context_object_name = 'texnalogiya-yangiliklar'
+    context_object_name = 'texnalogiya_yangiliklar'
     def get_queryset(self):
         news = self.model.objects.filter(status=News.Status.Published,  category__name="Texnalogiya")
         return news
+
+
+
+class NewsUpdateView(UpdateView):
+    model = News
+    fields = ('title', 'body', 'image', 'category', 'status')
+    template_name = "crud/news_update.html"
+
+class NewsDeleteView(DeleteView):
+    model = News
+    template_name = "crud/news_delete.html"
+    success_url = reverse_lazy("index_page")
+
+class NewsCreateView(CreateView):
+    model = News
+    template_name = 'crud/news_create.html'
+    fields = ('title', 'slug', 'body', 'image', 'category', 'status')
+    success_url = reverse_lazy("index_page")
 
 
 

@@ -1,13 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>News detail page</title>
-</head>
-<body>
+{% extends 'news/base.html' %}
+{% load static %}
+{% block content %}
     <img src="{{ news.image.url }}" alt="Bu yerda rasm bor">
     <h1>{{news.title}}</h1>
     <p>{{news.body}}</p>
     <span>{{news.publish_time}}</span>
-</body>
-</html>
+
+    <div class="card-footer text-center">
+        <a href="{% url 'news_edit' news.slug %}">Tahrirlash</a>
+        <a href="{% url 'news_delete' news.slug %}">O'chirish</a>
+    </div>
+{% endblock content %}
