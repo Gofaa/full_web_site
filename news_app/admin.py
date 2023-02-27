@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, News, ContactUs
+from .models import Category, News, ContactUs, Comment
 
 # News modelini admin panelda ko'rsatish
 @admin.register(News)
@@ -22,7 +22,19 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display = ['id', 'name']
 
 admin.site.register(ContactUs)
+#admin.site.register(Comment)
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ['user', 'body', 'created_time', 'active']
+    list_filter = ['active', 'created_time']
+    search_fields = ['user', 'body']
+    actions = ['disable_comments', 'activeta_comment']
 
+    def disable_comments(self, request, queryset):
+        queryset.update(active=False)
+
+    def activeta_comment(self, request, queryset):
+        queryset.update(active=False)
 
 
 

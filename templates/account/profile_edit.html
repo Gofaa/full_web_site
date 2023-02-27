@@ -1,0 +1,13 @@
+{% extends 'news/base.html' %}
+{%  load static %}
+{% block title %} Foydalanuvchi ma'lumotlarni tahrirlash {% endblock %}
+{% block content %}
+    <h3>Malumotlaringizni o'zgartirishingiz mumkin</h3>
+    <p>Quyidagi forma orqali ma'lumotlarni o'zgartirishingiz mumkin</p>
+    <img src="{{ profile_form.photo.url }}">
+    <form method="post" enctype="multipart/form-data">{% csrf_token %}
+        {{ user_form.as_p }}
+        {{ profile_form.as_p }}
+        <button type="submit">O'zgarishlarni saqlash</button>
+    </form>
+{% endblock %}

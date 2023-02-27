@@ -1,0 +1,8 @@
+{% extends 'news/base.html' %}
+{%  load static %}
+{% block title %} Muvaffaqiyatli ro'yhatdan o'tdingiz {% endblock %}
+{% block content %}
+     <h3> {{ new_user.first_name }} </h3>
+    <p>Muvaffaqiyatli ro'yhatdan o'tdingiz. Saytga kirish uchun <a href="{% url 'login' %}" style="color: #0a8ec4">bu yerni</a>bosing</p>
+
+{% endblock %}

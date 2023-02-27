@@ -6,7 +6,9 @@
     <form method="post">{% csrf_token %}
     {{form.as_p}}
     <button type="submit">Login</button>
-    </form>
+    </form> <br> <br>
+    <p>Agar parolingizni unutgan bo'lsangiz uni qayta tiklashingiz mumkin</p>
+    <a href="{% url 'password_reset' %}"><button type="button" class="button text-danger">Parolni tiklash</button></a>
 
 
 
