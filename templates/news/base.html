@@ -1,4 +1,5 @@
 {% load static %}
+ {% load i18n %}
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/html">
 <head>
@@ -28,12 +29,28 @@
         <div class="header_top">
           <div class="header_top_left">
             <ul class="top_nav">
-              <li><a href="{% url 'index_page' %}">Bosh sahifa</a></li>
-              <li><a href="#">Biz haqimizda</a></li>
-              <li><a href="{% url 'contact_page' %}">Biz bilan aloqa</a></li>
+              <li><a href="{% url 'index_page' %}">{% blocktrans %}Bosh sahifa {% endblocktrans %}</a></li>
+              <li><a href="#">{% blocktrans %}Biz haqimizda {% endblocktrans %}</a></li>
+              <li><a href="{% url 'contact_page' %}">{% blocktrans %}Biz bilan aloqa{% endblocktrans %}</a></li>
                 {% if request.user.is_authenticated and request.user.is_superuser %}
                     <li><a href="{% url 'admin_page' %}">Admin sahifa</a></li>
                 {% endif %}
+
+
+<form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+    <input name="next" type="hidden" value="{{ redirect_to }}">
+    <select name="language">
+        {% get_current_language as LANGUAGE_CODE %}
+        {% get_available_languages as LANGUAGES %}
+        {% get_language_info_list for LANGUAGES as languages %}
+        {% for language in languages %}
+            <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected{% endif %}>
+                {{ language.name_local }} ({{ language.code }})
+            </option>
+        {% endfor %}
+    </select>
+    <input type="submit" value="Go">
+</form>
             </ul>
           </div>
           <div class="header_top_right">

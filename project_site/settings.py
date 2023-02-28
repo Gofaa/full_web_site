@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-4va+aaa9bu1da)rx5rt_g49i%0#rx*wk0telw^g3)fnwv-m704
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.pythonanywhere.com', '127.0.0.1']
 
 
 # Application definition
@@ -44,12 +44,15 @@ INSTALLED_APPS = [
     'news_app',
     'accounts',
     'hitcount',
+    'modeltranslation',
+    'gettext',
 
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -112,13 +115,24 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'uz-uz'
 
 TIME_ZONE = 'Asia/Tashkent'
 
 USE_I18N = True
 
 USE_TZ = True
+
+from django.utils.translation import gettext_lazy as _
+LANGUAGES = [
+    ('uz', _("Uzbek")),
+    ('en', _("English")),
+    ('ru', _("Russian")),
+]
+
+MODELTRANSLATION_DEFAULT_LANGUAGES = 'uz'
+
+LOCALE_PATHS = (BASE_DIR, 'locale/')
 
 
 # Static files (CSS, JavaScript, Images)

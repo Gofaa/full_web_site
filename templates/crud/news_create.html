@@ -1,13 +1,57 @@
 {% extends 'news/base.html' %}
 {% load static %}
 % load admin %}
+<head>
+        <style>
+        fieldset.slugify {
+            color: #515151;
+            border: 1px solid #ccc;
+            padding: 15px;
+        }
+
+        .slugify legend {
+            font-size: 16px;
+            font-weight: 600;
+            padding: 0 10px;
+        }
+
+        .slugify input {
+            display: block;
+            padding: 8px;
+            margin: 8px;
+        }
+
+        .slug-output {
+            color: #05ab13;
+            font-size: 20px;
+            font-weight: 500;
+        }
+    </style>
+
+</head>
+<body>
+<script>
+	function myFunction() {
+
+		var a = document.getElementById("slug-source").value;
+
+		var b = a.toLowerCase().replace(/ /g, '-')
+			.replace(/[^\w-]+/g, '');
+
+		document.getElementById("slug-target").value = b;
+
+		document.getElementById("slug-target-span").innerHTML = b;
+	}
+</script>
 {% block title %} Yangilik qo'shish {% endblock title %}
 {% block content %}
     <h2 class="text-center">Yangilik qo'shish</h2>
 <form method="post" enctype="multipart/form-data"> {% csrf_token %}
-    {{form.as_p}}
-    {{form.title | slugify}}
+    {{ form.as_p }}
     <button type="submit" class="btn btn-danger ml-2">Saqlash</button>
 </form>
 
 {% endblock content %}
+
+
+</body>
